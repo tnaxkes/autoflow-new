@@ -7,20 +7,25 @@
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600;700;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #000000;
-    --bg2: #060606;
-    --card: #0a0a0a;
-    --border: rgba(255,255,255,0.06);
-    --border2: rgba(255,255,255,0.12);
+    --bg: #0d0d0f;
+    --bg2: #131316;
+    --card: #1a1a1e;
+    --border: rgba(255,255,255,0.09);
+    --border2: rgba(255,255,255,0.15);
     --accent: #ff6b2b;
     --accent2: #ffb347;
     --accent3: #ff3d6b;
-    --glow: rgba(255,107,43,0.15);
-    --glow2: rgba(255,179,71,0.1);
-    --text: #e0e0e0;
-    --muted: #555;
-    --muted2: #777;
+    --glow: rgba(255,107,43,0.25);
+    --glow2: rgba(255,179,71,0.18);
+    --text: #e8e8ea;
+    --muted: #888890;
+    --muted2: #a0a0a8;
     --white: #ffffff;
+    --cyan: #00d4ff;
+    --purple: #a855f7;
+    --pink: #ec4899;
+    --page-pad: clamp(20px, 5vw, 56px);
+    --section-pad: clamp(26px, 7vw, 96px);
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -68,7 +73,7 @@
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
     display: flex; align-items: center; justify-content: space-between;
-    padding: 22px 5%;
+    padding: 22px var(--page-pad);
     transition: all 0.4s;
   }
 
@@ -76,16 +81,16 @@
     background: rgba(0,0,0,0.85);
     backdrop-filter: blur(24px);
     border-bottom: 1px solid var(--border);
-    padding: 16px 5%;
+    padding: 16px var(--page-pad);
   }
 
   .nav-logo {
     font-family: 'Unbounded', sans-serif;
-    font-weight: 700; font-size: 1.1rem;
+    font-weight: 800; font-size: clamp(1.1rem, 2.4vw, 1.6rem);
     color: var(--white);
     letter-spacing: -0.02em;
     text-decoration: none;
-    display: flex; align-items: center; gap: 2px;
+    display: flex; align-items: center; gap: 4px;
   }
   .nav-logo .dot { color: var(--accent); }
 
@@ -146,7 +151,7 @@
   }
   .mobile-nav a:hover { color: var(--accent); }
   .mobile-nav-close {
-    position: absolute; top: 24px; right: 5%;
+    position: absolute; top: 24px; right: var(--page-pad);
     font-size: 2rem; color: var(--muted2);
     cursor: pointer; background: none; border: none;
   }
@@ -155,7 +160,7 @@
   #hero {
     min-height: 100vh;
     display: flex; align-items: center;
-    padding: 120px 5% 80px;
+    padding: 120px var(--page-pad) 80px;
     position: relative; overflow: hidden;
   }
 
@@ -218,17 +223,6 @@
     max-width: 900px;
   }
 
-  .hero-badge {
-    display: inline-flex; align-items: center; gap: 10px;
-    border: 1px solid rgba(255,107,43,0.3);
-    border-radius: 2px;
-    padding: 8px 16px;
-    font-size: 0.72rem; font-weight: 500;
-    color: var(--accent);
-    margin-bottom: 40px;
-    letter-spacing: 0.14em; text-transform: uppercase;
-    animation: fadeUp 0.9s ease both;
-  }
 
   .badge-pulse {
     width: 6px; height: 6px;
@@ -254,7 +248,11 @@
     animation: fadeUp 0.9s 0.15s ease both;
   }
 
-  h1 .line { display: block; overflow: hidden; }
+  h1 .line {
+    display: block;
+    overflow: visible;
+    white-space: normal;
+  }
   h1 .accent-text {
     color: transparent;
     -webkit-text-stroke: 1px var(--accent);
@@ -383,7 +381,16 @@
   .logo-sep { color: var(--accent); opacity: 0.4; }
 
   /* ── SECTION COMMON ── */
-  section { padding: 120px 5%; }
+  section { padding: 120px var(--section-pad); }
+  @media (max-width: 1024px) {
+    section { padding: 100px clamp(24px, 6vw, 72px); }
+  }
+  @media (max-width: 768px) {
+    section { padding: 80px clamp(22px, 5.5vw, 48px); }
+  }
+  @media (max-width: 480px) {
+    section { padding: 70px 20px; }
+  }
   .sec-eyebrow {
     font-size: 0.72rem; font-weight: 600;
     letter-spacing: 0.15em; text-transform: uppercase;
@@ -418,17 +425,47 @@
 
   .services-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: var(--border);
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+    background: transparent;
   }
 
   .service-card {
     background: var(--bg2);
-    padding: 48px 40px;
+    padding: 28px 22px;
     position: relative; overflow: hidden;
-    transition: background 0.4s;
+    transition: background 0.4s, transform 0.25s;
     cursor: default;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+  }
+
+  .service-card:hover {
+    background: #0f0f0f;
+    transform: translateY(-2px);
+  }
+
+  /* responsive правки для десктоп / ноутбук / планшет / мобильный */
+  @media (max-width: 1200px) {
+    .services-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+    .service-card { padding: 24px 16px; }
+    .svc-title { font-size: 0.96rem; }
+    .svc-desc { font-size: 0.84rem; }
+  }
+  @media (max-width: 850px) {
+    section { padding: 70px 22px; }
+    .services-grid { grid-template-columns: 1fr; gap: 12px; }
+    .service-card { padding: 20px 14px; }
+    .svc-title { font-size: 0.92rem; }
+    .svc-desc { font-size: 0.82rem; line-height: 1.65; }
+  }
+  @media (max-width: 600px) {
+    section { padding: 56px 18px; }
+    .services-grid { grid-template-columns: 1fr; gap: 10px; }
+    .service-card { padding: 18px 12px; }
+    .svc-title { font-size: 0.88rem; }
+    .svc-desc { font-size: 0.78rem; }
+    .svc-tags { gap: 4px; }
   }
 
   .service-card::after {
@@ -620,7 +657,7 @@
   /* ── STACK ── */
   #stack { background: var(--bg); padding: 80px 0; }
 
-  .stack-header { text-align: center; margin-bottom: 60px; padding: 0 5%; }
+  .stack-header { text-align: center; margin-bottom: 60px; padding: 0 var(--page-pad); }
   .stack-header .sec-eyebrow { justify-content: center; }
   .stack-header .sec-eyebrow::before { display: none; }
 
@@ -853,7 +890,7 @@
   footer {
     background: #000;
     border-top: 1px solid var(--border);
-    padding: 48px 5%;
+    padding: 48px var(--page-pad);
     display: grid;
     grid-template-columns: auto 1fr auto;
     align-items: center; gap: 32px;
@@ -861,7 +898,7 @@
 
   .footer-logo {
     font-family: 'Unbounded', sans-serif;
-    font-weight: 700; font-size: 1rem;
+    font-weight: 700; font-size: 0.92rem;
     color: var(--white); text-decoration: none;
   }
   .footer-logo .dot { color: var(--accent); }
@@ -939,8 +976,12 @@
   @media (max-width: 768px) {
     .nav-links { display: none; }
     .nav-hamburger { display: flex; }
-    section { padding: 80px 5%; }
-    h1 { font-size: clamp(2.2rem, 10vw, 3.5rem); }
+    section { padding: 80px clamp(22px, 5.5vw, 48px); }
+    .hero-content { padding-left: 18px; }
+    h1 {
+      font-size: clamp(1.85rem, 8.4vw, 3rem);
+      letter-spacing: -0.018em;
+    }
     .hero-stats { gap: 24px; flex-direction: column; }
     .stat-item { border-right: none; padding-right: 0; margin-right: 0; border-bottom: 1px solid var(--border); padding-bottom: 20px; }
     .stat-item:last-child { border-bottom: none; padding-bottom: 0; }
@@ -953,11 +994,426 @@
 
   @media (max-width: 480px) {
     .hero-badge { font-size: 0.65rem; }
+    .hero-content { padding-left: 24px; }
+    h1 {
+      font-size: clamp(1.65rem, 7.8vw, 2.35rem);
+      letter-spacing: -0.012em;
+    }
     .btn-primary, .btn-ghost { padding: 14px 24px; font-size: 0.88rem; }
     .service-card { padding: 36px 28px; }
-    footer { padding: 40px 5%; }
+    footer { padding: 40px 20px; }
     .footer-links { gap: 20px; flex-wrap: wrap; }
   }
+
+  /* ══════════════════════════════════════
+     FLOATING CTA BAR
+  ══════════════════════════════════════ */
+  .float-cta {
+    position: fixed; bottom: 28px; right: 28px; z-index: 900;
+    display: flex; align-items: center; gap: 12px;
+    background: var(--accent);
+    color: var(--white);
+    padding: 14px 24px;
+    border-radius: 4px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem; font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 8px 32px rgba(255,107,43,0.4);
+    transition: all 0.3s;
+    animation: floatIn 0.6s 2s ease both;
+    letter-spacing: 0.01em;
+  }
+  .float-cta:hover { background: var(--accent2); transform: translateY(-2px); box-shadow: 0 16px 48px rgba(255,107,43,0.5); }
+  .float-cta svg { flex-shrink: 0; }
+  @keyframes floatIn { from { opacity:0; transform: translateY(20px); } to { opacity:1; transform: translateY(0); } }
+  @media (max-width: 600px) {
+    .float-cta { bottom: 16px; right: 16px; left: 16px; justify-content: center; }
+  }
+
+  /* ══════════════════════════════════════
+     AUDIT OFFER STRIP (between services & process)
+  ══════════════════════════════════════ */
+  .audit-strip {
+    background: #050505;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 64px var(--page-pad);
+    position: relative; overflow: hidden;
+  }
+  .audit-strip::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 70% 50%, rgba(255,107,43,0.07), transparent 60%);
+    pointer-events: none;
+  }
+  .audit-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 40px; flex-wrap: wrap;
+    position: relative; z-index: 1;
+    max-width: 1200px; margin: 0 auto;
+  }
+  .audit-left { max-width: 580px; }
+  .audit-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 16px;
+  }
+  .audit-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 8px var(--accent); }
+  .audit-title {
+    font-family: 'Unbounded', sans-serif;
+    font-size: clamp(1.4rem, 3vw, 2.2rem);
+    font-weight: 900; letter-spacing: -0.04em;
+    color: var(--white); line-height: 1.1; margin-bottom: 12px;
+  }
+  .audit-title span { color: var(--accent); }
+  .audit-desc { font-size: 0.92rem; color: var(--muted2); line-height: 1.75; }
+  .audit-points { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+  .audit-point {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 0.82rem; color: var(--muted2);
+  }
+  .audit-point-icon { width: 16px; height: 16px; color: var(--accent); flex-shrink: 0; }
+  .audit-form { display: flex; gap: 12px; flex-wrap: wrap; min-width: 320px; }
+  .audit-input {
+    flex: 1; min-width: 200px; padding: 14px 16px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border2);
+    border-radius: 3px;
+    color: var(--text); font-size: 0.9rem;
+    font-family: 'DM Sans', sans-serif;
+    outline: none; transition: border-color 0.2s;
+  }
+  .audit-input::placeholder { color: var(--muted); }
+  .audit-input:focus { border-color: rgba(255,107,43,0.5); }
+  .audit-btn {
+    padding: 14px 28px;
+    background: var(--accent); color: var(--white);
+    border: none; border-radius: 3px;
+    font-size: 0.9rem; font-weight: 600;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer; white-space: nowrap;
+    transition: all 0.2s;
+  }
+  .audit-btn:hover { background: var(--accent2); transform: translateY(-1px); }
+
+  /* ══════════════════════════════════════
+     QUIZ
+  ══════════════════════════════════════ */
+  #quiz { background: var(--bg2); padding: 120px var(--page-pad); }
+
+  .quiz-wrap {
+    max-width: 760px; margin: 0 auto;
+  }
+  .quiz-header { text-align: center; margin-bottom: 60px; }
+  .quiz-header .sec-eyebrow { justify-content: center; }
+  .quiz-header .sec-eyebrow::before { display: none; }
+
+  .quiz-box {
+    background: #050505;
+    border: 1px solid var(--border2);
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+  }
+  .quiz-box::before {
+    content: '';
+    position: absolute; top:0; left:0; right:0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  }
+
+  .quiz-progress-bar {
+    height: 2px; background: var(--border);
+    position: relative;
+  }
+  .quiz-progress-fill {
+    height: 100%; background: var(--accent);
+    transition: width 0.4s ease;
+    border-radius: 0 2px 2px 0;
+  }
+
+  .quiz-steps { position: relative; }
+  .quiz-step {
+    padding: 48px;
+    display: none;
+  }
+  .quiz-step.active { display: block; }
+
+  .quiz-step-label {
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 16px;
+  }
+  .quiz-q {
+    font-family: 'Unbounded', sans-serif;
+    font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+    font-weight: 700; letter-spacing: -0.03em;
+    color: var(--white); margin-bottom: 32px; line-height: 1.3;
+  }
+
+  .quiz-options {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 10px; margin-bottom: 36px;
+  }
+  .quiz-opt {
+    padding: 16px 20px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.88rem; color: var(--muted2);
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.2s; text-align: left;
+    display: flex; align-items: center; gap: 12px;
+    line-height: 1.4;
+  }
+  .quiz-opt:hover { border-color: rgba(255,107,43,0.4); color: var(--text); background: rgba(255,107,43,0.05); }
+  .quiz-opt.selected { border-color: var(--accent); color: var(--white); background: rgba(255,107,43,0.1); }
+  .quiz-opt-num {
+    width: 24px; height: 24px; border-radius: 50%;
+    border: 1px solid var(--border); flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem; font-weight: 700; color: var(--muted);
+    transition: all 0.2s;
+  }
+  .quiz-opt.selected .quiz-opt-num { background: var(--accent); border-color: var(--accent); color: var(--white); }
+
+  .quiz-nav { display: flex; gap: 12px; justify-content: flex-end; }
+  .quiz-btn-next {
+    padding: 14px 32px;
+    background: var(--accent); color: var(--white);
+    border: none; border-radius: 3px;
+    font-size: 0.9rem; font-weight: 600;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .quiz-btn-next:hover { background: var(--accent2); }
+  .quiz-btn-next:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  /* Quiz final step - contact collection */
+  .quiz-final { padding: 48px; display: none; }
+  .quiz-final.active { display: block; }
+  .quiz-final-title {
+    font-family: 'Unbounded', sans-serif;
+    font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+    font-weight: 900; letter-spacing: -0.03em;
+    color: var(--white); margin-bottom: 12px; line-height: 1.2;
+  }
+  .quiz-final-title span { color: var(--accent); }
+  .quiz-final-sub { font-size: 0.9rem; color: var(--muted2); margin-bottom: 28px; line-height: 1.7; }
+  .quiz-final-form { display: flex; flex-direction: column; gap: 12px; }
+  .quiz-result-preview {
+    background: rgba(255,107,43,0.06);
+    border: 1px solid rgba(255,107,43,0.2);
+    border-radius: 4px; padding: 16px 20px;
+    margin-bottom: 24px;
+    font-size: 0.85rem; color: var(--muted2); line-height: 1.7;
+  }
+  .quiz-result-preview strong { color: var(--accent); }
+
+  /* Quiz success */
+  .quiz-success { padding: 64px 48px; text-align: center; display: none; }
+  .quiz-success.active { display: block; }
+  .quiz-success-icon {
+    width: 64px; height: 64px; border-radius: 50%;
+    background: rgba(40,200,64,0.1); border: 1px solid rgba(40,200,64,0.3);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 24px; color: #28c840;
+  }
+  .quiz-success-title {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 1.4rem; font-weight: 900;
+    color: var(--white); margin-bottom: 10px;
+  }
+  .quiz-success-sub { font-size: 0.9rem; color: var(--muted2); line-height: 1.7; }
+
+  @media (max-width: 600px) {
+    .quiz-options { grid-template-columns: 1fr; }
+    .quiz-step, .quiz-final, .quiz-success { padding: 28px 24px; }
+  }
+
+  /* ══════════════════════════════════════
+     TESTIMONIALS
+  ══════════════════════════════════════ */
+  #testimonials { background: var(--bg); padding: 120px var(--page-pad); }
+
+  .testi-header { margin-bottom: 64px; }
+
+  .testi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .testi-card {
+    background: #060606;
+    border: 1px solid var(--border);
+    border-radius: 4px; padding: 36px;
+    display: flex; flex-direction: column;
+    position: relative; overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .testi-card:hover { border-color: rgba(255,107,43,0.25); transform: translateY(-4px); }
+
+  .testi-card.featured {
+    border-color: rgba(255,107,43,0.3);
+    background: rgba(255,107,43,0.04);
+  }
+
+  .testi-stars {
+    display: flex; gap: 4px; margin-bottom: 20px;
+  }
+  .testi-star {
+    color: var(--accent2);
+  }
+
+  .testi-quote {
+    flex: 1;
+    font-size: 0.93rem; color: var(--text);
+    line-height: 1.8; font-weight: 300;
+    margin-bottom: 28px;
+    font-style: italic;
+  }
+  .testi-quote::before { content: '"'; color: var(--accent); font-size: 1.4rem; font-style: normal; line-height: 0; vertical-align: -0.3em; margin-right: 4px; }
+
+  .testi-author {
+    display: flex; align-items: center; gap: 14px;
+    padding-top: 24px; border-top: 1px solid var(--border);
+  }
+  .testi-avatar {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: rgba(255,107,43,0.12);
+    border: 1px solid rgba(255,107,43,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Unbounded', sans-serif;
+    font-size: 0.75rem; font-weight: 700; color: var(--accent);
+    flex-shrink: 0;
+  }
+  .testi-name {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 0.8rem; font-weight: 700;
+    color: var(--white); letter-spacing: -0.01em;
+  }
+  .testi-role { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+
+  .testi-metric {
+    display: inline-block;
+    background: rgba(255,107,43,0.1);
+    border: 1px solid rgba(255,107,43,0.2);
+    border-radius: 2px; padding: 4px 10px;
+    font-size: 0.75rem; font-weight: 700;
+    color: var(--accent); margin-top: 10px;
+    letter-spacing: 0.02em;
+  }
+
+  @media (max-width: 900px) { .testi-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 768px) {
+    .audit-inner { flex-direction: column; }
+    .audit-form { width: 100%; }
+  }
+
+  /* ══════════════════════════════════════
+     CASES - manual slider instead of auto
+  ══════════════════════════════════════ */
+  .cases-slider-wrap {
+    position: relative; margin-top: 60px;
+  }
+  .cases-slider {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .cases-nav {
+    display: flex; align-items: center; gap: 12px; margin-top: 32px;
+  }
+  .cases-nav-btn {
+    width: 44px; height: 44px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border2);
+    border-radius: 3px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--muted2); transition: all 0.2s;
+  }
+  .cases-nav-btn:hover { border-color: rgba(255,107,43,0.4); color: var(--white); }
+  .cases-nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+  .cases-nav-dots { display: flex; gap: 8px; }
+  .cases-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--border2); transition: all 0.3s; cursor: pointer;
+  }
+  .cases-dot.active { background: var(--accent); width: 20px; border-radius: 3px; }
+
+  @media (max-width: 900px) { .cases-slider { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .cases-slider { grid-template-columns: 1fr; } }
+
+
+  /* ── CALCULATOR ── */
+  #calculator { background: var(--bg2); padding: 120px var(--page-pad); }
+  .calc-wrap { max-width: 860px; margin: 0 auto; }
+  .calc-header { text-align: center; margin-bottom: 60px; }
+  .calc-header .sec-eyebrow { justify-content: center; }
+  .calc-header .sec-eyebrow::before { display: none; }
+  .calc-box { background: #050505; border: 1px solid var(--border2); border-radius: 6px; overflow: hidden; position: relative; }
+  .calc-box::before { content: ''; position: absolute; top:0; left:0; right:0; height: 1px; background: linear-gradient(90deg, transparent, var(--accent), transparent); }
+  .calc-body { padding: 52px; }
+  .calc-sliders { display: flex; flex-direction: column; gap: 40px; margin-bottom: 48px; }
+  .calc-slider-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px; }
+  .calc-slider-label { font-size: 0.85rem; color: var(--muted2); font-weight: 400; }
+  .calc-slider-val { font-family: 'Unbounded', sans-serif; font-size: 1.2rem; font-weight: 900; color: var(--white); letter-spacing: -0.03em; }
+  .calc-slider-val span { color: var(--accent); font-size: 0.9rem; }
+  input[type=range].calc-range { -webkit-appearance: none; width: 100%; height: 2px; background: var(--border2); border-radius: 2px; outline: none; cursor: pointer; }
+  input[type=range].calc-range::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px rgba(255,107,43,0.15); cursor: pointer; transition: box-shadow 0.2s; }
+  input[type=range].calc-range::-webkit-slider-thumb:hover { box-shadow: 0 0 0 8px rgba(255,107,43,0.2); }
+  .calc-divider { height: 1px; background: var(--border); margin: 0 0 48px; }
+  .calc-result-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 36px; }
+  .calc-result-card { background: rgba(255,107,43,0.05); border: 1px solid rgba(255,107,43,0.2); border-radius: 4px; padding: 28px; text-align: center; }
+  .calc-result-card.big { grid-column: 1 / -1; }
+  .calc-result-label { font-size: 0.75rem; color: var(--muted2); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 12px; }
+  .calc-result-num { font-family: 'Unbounded', sans-serif; font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 900; color: var(--accent); letter-spacing: -0.05em; line-height: 1; }
+  .calc-result-num.danger { color: #ff3d6b; }
+  .calc-result-sub { font-size: 0.78rem; color: var(--muted); margin-top: 6px; }
+  .calc-cta-note { font-size: 0.82rem; color: var(--muted); text-align: center; margin-bottom: 20px; }
+  .calc-form { display: flex; gap: 12px; flex-wrap: wrap; }
+  .calc-input { flex: 1; min-width: 200px; padding: 14px 16px; background: rgba(255,255,255,0.04); border: 1px solid var(--border2); border-radius: 3px; color: var(--text); font-size: 0.9rem; font-family: 'DM Sans', sans-serif; outline: none; transition: border-color 0.2s; }
+  .calc-input::placeholder { color: var(--muted); }
+  .calc-input:focus { border-color: rgba(255,107,43,0.5); }
+  .calc-submit { padding: 14px 28px; background: var(--accent); color: var(--white); border: none; border-radius: 3px; font-size: 0.9rem; font-weight: 600; font-family: 'DM Sans', sans-serif; cursor: pointer; white-space: nowrap; transition: all 0.2s; }
+  .calc-submit:hover { background: var(--accent2); transform: translateY(-1px); }
+  @media (max-width: 768px) { .calc-body { padding: 28px 24px; } .calc-result-row { grid-template-columns: 1fr; } .calc-result-card.big { grid-column: auto; } }
+
+  /* ── COMPARISON ── */
+  #comparison { background: var(--bg); padding: 120px var(--page-pad); }
+  .comp-header { text-align: center; margin-bottom: 64px; }
+  .comp-header .sec-eyebrow { justify-content: center; }
+  .comp-header .sec-eyebrow::before { display: none; }
+  .comp-table-wrap { overflow-x: auto; }
+  .comp-table { width: 100%; border-collapse: collapse; min-width: 600px; }
+  .comp-table th, .comp-table td { padding: 18px 24px; text-align: left; border-bottom: 1px solid var(--border); font-size: 0.88rem; }
+  .comp-table thead th { font-family: 'Unbounded', sans-serif; font-size: 0.8rem; font-weight: 700; color: var(--muted2); padding-bottom: 20px; }
+  .comp-table thead th.col-us { color: var(--white); background: rgba(255,107,43,0.08); border-top: 2px solid var(--accent); }
+  .comp-table tbody tr:hover td { background: rgba(255,255,255,0.02); }
+  .comp-table td:first-child { color: var(--muted2); font-size: 0.85rem; width: 38%; }
+  .comp-table td.col-them { color: var(--muted); }
+  .comp-table td.col-us { background: rgba(255,107,43,0.05); color: var(--text); font-weight: 500; }
+  .comp-check { color: #28c840; font-weight: 700; }
+  .comp-cross { color: #ff3d6b; }
+  .comp-accent { color: var(--accent); font-weight: 600; }
+
+
+
+
+
+  /* ── FAQ ── */
+  #faq { background: var(--bg2); padding: 120px var(--page-pad); }
+  .faq-wrap { max-width: 760px; margin: 60px auto 0; }
+  .faq-item { border-bottom: 1px solid var(--border); overflow: hidden; }
+  .faq-q { width: 100%; background: none; border: none; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 24px 0; text-align: left; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 500; color: var(--text); transition: color 0.2s; }
+  .faq-q:hover { color: var(--white); }
+  .faq-q.open { color: var(--accent); }
+  .faq-icon { width: 28px; height: 28px; flex-shrink: 0; border: 1px solid var(--border2); border-radius: 3px; display: flex; align-items: center; justify-content: center; color: var(--muted2); transition: all 0.3s; }
+  .faq-q.open .faq-icon { background: rgba(255,107,43,0.1); border-color: rgba(255,107,43,0.3); color: var(--accent); transform: rotate(45deg); }
+  .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s; font-size: 0.9rem; color: var(--muted2); line-height: 1.8; font-weight: 300; padding: 0; }
+  .faq-a.open { max-height: 300px; padding-bottom: 24px; }
+
 </style>
 </head>
 <body>
@@ -1010,10 +1466,6 @@
   <div class="orb orb-3"></div>
 
   <div class="hero-content">
-    <div class="hero-badge">
-      <div class="badge-pulse"></div>
-      Открыт к новым проектам
-    </div>
     <h1>
       <span class="line fill">Автоматизирую</span>
       <span class="line accent-text">бизнес,</span>
@@ -1075,6 +1527,26 @@
     <span class="logo-item">AWS <span class="logo-sep">✦</span></span>
     <span class="logo-item">1C <span class="logo-sep">✦</span></span>
     <span class="logo-item">Docker <span class="logo-sep">✦</span></span>
+  </div>
+</div>
+
+<!-- AUDIT OFFER -->
+<div class="audit-strip">
+  <div class="audit-inner">
+    <div class="audit-left reveal">
+      <div class="audit-badge"><span class="audit-badge-dot"></span> Бесплатный аудит</div>
+      <div class="audit-title">Покажу, где бизнес теряет <span>деньги и время</span></div>
+      <p class="audit-desc">За 30 минут разберу ваши процессы, найду узкие места и подскажу, что можно автоматизировать в первую очередь без лишних затрат.</p>
+      <div class="audit-points">
+        <div class="audit-point"><svg class="audit-point-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1v14M1 8h14"/></svg> Быстрый разбор процессов</div>
+        <div class="audit-point"><svg class="audit-point-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l3 3 7-7"/></svg> Приоритеты внедрения</div>
+        <div class="audit-point"><svg class="audit-point-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 13h12"/><path d="M4 10l2-3 2 2 4-5"/></svg> Оценка эффекта и ROI</div>
+      </div>
+    </div>
+    <form class="audit-form reveal" id="auditForm">
+      <input type="text" class="audit-input" id="audit-contact" placeholder="Telegram или телефон" required>
+      <button type="submit" class="audit-btn">Получить аудит →</button>
+    </form>
   </div>
 </div>
 
@@ -1145,19 +1617,9 @@
         <span class="tag">Power BI</span>
       </div>
     </div>
-    <div class="service-card">
-      <div class="svc-num">06</div>
-      <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      <div class="svc-title">Поддержка и развитие</div>
-      <p class="svc-desc">Сопровождаю системы после запуска: мониторинг, обновления, развитие. Вы не остаётесь один на один с технологиями — я рядом.</p>
-      <div class="svc-tags">
-        <span class="tag">SLA</span>
-        <span class="tag">Мониторинг</span>
-        <span class="tag">Документация</span>
-      </div>
-    </div>
   </div>
 </section>
+
 
 <!-- PROCESS -->
 <section id="process">
@@ -1225,50 +1687,149 @@
   </div>
 </section>
 
-<!-- WHY -->
-<section id="why">
-  <div class="why-header reveal">
-    <div class="sec-eyebrow">Почему я</div>
-    <div class="sec-title">Мои принципы</div>
-    <p class="sec-sub">Каждый проект — это партнёрство, а не просто задача.</p>
+
+
+
+<!-- CALCULATOR -->
+<section id="calculator">
+  <div class="calc-wrap">
+    <div class="calc-header reveal">
+      <div class="sec-eyebrow">Калькулятор потерь</div>
+      <div class="sec-title">Сколько теряет<br>ваш бизнес сейчас</div>
+      <p class="sec-sub" style="margin:0 auto;text-align:center;">Подвигайте слайдеры — увидите реальные цифры потерь из-за неавтоматизированных процессов.</p>
+    </div>
+    <div class="calc-box reveal">
+      <div class="calc-body">
+        <div class="calc-sliders">
+          <div class="calc-slider-group">
+            <div class="calc-slider-top"><span class="calc-slider-label">Входящих заявок в месяц</span><span class="calc-slider-val" id="calcLeadsVal">100 <span>заявок</span></span></div>
+            <input type="range" class="calc-range" id="calcLeads" min="10" max="1000" value="100" step="10">
+          </div>
+          <div class="calc-slider-group">
+            <div class="calc-slider-top"><span class="calc-slider-label">Средний чек сделки</span><span class="calc-slider-val" id="calcCheckVal">80 000 <span>&#8381;</span></span></div>
+            <input type="range" class="calc-range" id="calcCheck" min="5000" max="500000" value="80000" step="5000">
+          </div>
+          <div class="calc-slider-group">
+            <div class="calc-slider-top"><span class="calc-slider-label">Текущая конверсия в сделку</span><span class="calc-slider-val" id="calcConvVal">15 <span>%</span></span></div>
+            <input type="range" class="calc-range" id="calcConv" min="1" max="60" value="15" step="1">
+          </div>
+        </div>
+        <div class="calc-divider"></div>
+        <div class="calc-result-row">
+          <div class="calc-result-card">
+            <div class="calc-result-label">Теряете заявок без автоматизации</div>
+            <div class="calc-result-num danger" id="calcLostLeads">23</div>
+            <div class="calc-result-sub">уходят к конкурентам каждый месяц</div>
+          </div>
+          <div class="calc-result-card">
+            <div class="calc-result-label">Потенциал роста конверсии</div>
+            <div class="calc-result-num" id="calcGrowth">+8%</div>
+            <div class="calc-result-sub">реально при автоматизации</div>
+          </div>
+          <div class="calc-result-card big">
+            <div class="calc-result-label">Вы теряете приблизительно</div>
+            <div class="calc-result-num danger" id="calcLoss">1 840 000 &#8381;</div>
+            <div class="calc-result-sub">в месяц — консервативная оценка. Реальные потери выше на 30–50%</div>
+          </div>
+        </div>
+        <p class="calc-cta-note">Получите точный расчёт под ваш бизнес — бесплатно, за 30 минут</p>
+        <form class="calc-form" id="calcForm">
+          <input type="text" class="calc-input" id="calc-contact" placeholder="Ваш Telegram или телефон" required>
+          <button type="submit" class="calc-submit">Получить точный расчёт &#8594;</button>
+        </form>
+      </div>
+    </div>
   </div>
-  <div class="why-grid reveal">
-    <div class="why-card">
-      <div class="why-card-num">01</div>
-      <svg class="why-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-      <div class="why-title">Фокус на результат</div>
-      <p class="why-desc">Не создаю ради технологий — решаю бизнес-задачи. Каждое решение измеримо: время, деньги, конверсия.</p>
+</section>
+
+<!-- WHY -->
+<!-- Раздел "Мои принципы" удалён пользователем -->
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="testi-header reveal">
+    <div class="sec-eyebrow">Отзывы</div>
+    <div class="sec-title">Что говорят клиенты</div>
+  </div>
+  <div class="testi-grid reveal">
+    <div class="testi-card featured">
+      <div class="testi-stars">
+        <svg class="testi-star" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg class="testi-star" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg class="testi-star" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg class="testi-star" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg class="testi-star" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      </div>
+      <p class="testi-quote">Интеграция amoCRM и 1С заняла 5 дней. До этого менеджеры тратили по 2 часа в день на ручной перенос данных. Теперь всё синхронизируется автоматически — ошибок практически нет.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">АК</div>
+        <div>
+          <div class="testi-name">Алексей Котов</div>
+          <div class="testi-role">CEO, дистрибьюторская компания</div>
+          <div class="testi-metric">−90% ошибок в данных</div>
+        </div>
+      </div>
     </div>
-    <div class="why-card">
-      <div class="why-card-num">02</div>
-      <svg class="why-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-      <div class="why-title">Быстрый старт</div>
-      <p class="why-desc">MVP за 3–7 дней. Не жду идеальных условий — запускаю, тестируем вместе, дорабатываем.</p>
+    <div class="testi-card">
+      <div class="testi-stars">
+        <svg class="testi-star" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg class="testi-star" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg class="testi-star" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg class="testi-star" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg class="testi-star" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      </div>
+      <p class="testi-quote">Telegram-бот для записи пациентов полностью изменил работу ресепшн. Раньше телефон не умолкал — теперь большинство записей идёт через бота. Персонал наконец занимается людьми, а не телефоном.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">МС</div>
+        <div>
+          <div class="testi-name">Марина Соколова</div>
+          <div class="testi-role">Главврач, сеть клиник</div>
+          <div class="testi-metric">+40% записей / −60% нагрузки</div>
+        </div>
+      </div>
     </div>
-    <div class="why-card">
-      <div class="why-card-num">03</div>
-      <svg class="why-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-      <div class="why-title">Прозрачность</div>
-      <p class="why-desc">Вы всегда знаете что происходит: ежедневные апдейты, доступ к проекту, честные сроки и бюджет.</p>
+    <div class="testi-card">
+      <div class="testi-stars">
+        <svg class="testi-star" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg class="testi-star" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg class="testi-star" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg class="testi-star" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg class="testi-star" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      </div>
+      <p class="testi-quote">Дашборд объединил данные из пяти разных систем. Теперь вижу состояние всего бизнеса в одном экране — выручку, машины, водителей. Принимаю решения в два раза быстрее.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">ДВ</div>
+        <div>
+          <div class="testi-name">Дмитрий Волков</div>
+          <div class="testi-role">Директор, транспортная компания</div>
+          <div class="testi-metric">2× скорость принятия решений</div>
+        </div>
+      </div>
     </div>
-    <div class="why-card">
-      <div class="why-card-num">04</div>
-      <svg class="why-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2A2.5 2.5 0 017 4.5v0A2.5 2.5 0 014.5 7H4a2 2 0 00-2 2v0a2 2 0 002 2h.5A2.5 2.5 0 017 13.5v1A2.5 2.5 0 009.5 17v0a2.5 2.5 0 002.5 2.5h0A2.5 2.5 0 0014.5 17v-1a2.5 2.5 0 012.5-2.5H17a2 2 0 002-2v0a2 2 0 00-2-2h-.5A2.5 2.5 0 0114 7v0a2.5 2.5 0 00-2.5-2.5h0A2.5 2.5 0 009.5 2z"/></svg>
-      <div class="why-title">Реальный опыт</div>
-      <p class="why-desc">40+ проектов в e-commerce, финтех, медицине, логистике. Знаю типовые проблемы и быстрые решения.</p>
-    </div>
-    <div class="why-card">
-      <div class="why-card-num">05</div>
-      <svg class="why-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
-      <div class="why-title">Долгосрочные отношения</div>
-      <p class="why-desc">Большинство клиентов приходят повторно. Становлюсь технологическим партнёром, а не просто исполнителем.</p>
-    </div>
-    <div class="why-card">
-      <div class="why-card-num">06</div>
-      <svg class="why-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/><path d="M8 7h8M8 11h6"/></svg>
-      <div class="why-title">Документация всегда</div>
-      <p class="why-desc">Передаю понятную документацию на каждый проект. Ваша команда разберётся без меня.</p>
-    </div>
+  </div>
+</section>
+
+
+<!-- COMPARISON -->
+<section id="comparison">
+  <div class="comp-header reveal">
+    <div class="sec-eyebrow">Сравнение</div>
+    <div class="sec-title">Ручная работа vs<br>FlowByte автоматизация</div>
+  </div>
+  <div class="comp-table-wrap reveal">
+    <table class="comp-table">
+      <thead><tr><th></th><th>Без автоматизации</th><th class="col-us">С FlowByte</th></tr></thead>
+      <tbody>
+        <tr><td>Скорость ответа на заявку</td><td class="comp-cross col-them">1–4 часа</td><td class="col-us comp-accent">Мгновенно, 24/7</td></tr>
+        <tr><td>Потеря необработанных заявок</td><td class="comp-cross col-them">20–40%</td><td class="col-us comp-check">0% — все фиксируются</td></tr>
+        <tr><td>Ручной перенос данных между системами</td><td class="comp-cross col-them">2–4 часа в день</td><td class="col-us comp-check">Полностью автоматически</td></tr>
+        <tr><td>Отчёты и аналитика</td><td class="comp-cross col-them">Вручную, раз в неделю</td><td class="col-us comp-check">В реальном времени</td></tr>
+        <tr><td>Работа ночью и в выходные</td><td class="comp-cross col-them">Никак</td><td class="col-us comp-check">24/7 без выходных</td></tr>
+        <tr><td>Операционные расходы</td><td class="comp-cross col-them">300–800K &#8381;/мес (зарплаты)</td><td class="col-us comp-accent">Разово + поддержка</td></tr>
+        <tr><td>Масштабируемость</td><td class="comp-cross col-them">Нужны новые люди</td><td class="col-us comp-check">Без найма новых сотрудников</td></tr>
+        <tr><td>Срок первых результатов</td><td class="col-them">2–3 месяца</td><td class="col-us comp-accent">3–7 дней MVP</td></tr>
+      </tbody>
+    </table>
   </div>
 </section>
 
@@ -1353,6 +1914,7 @@
   </div>
 </section>
 
+
 <!-- CASES -->
 <section id="cases">
   <div class="cases-top reveal">
@@ -1362,12 +1924,12 @@
     </div>
     <p class="sec-sub">Реальные проекты — реальные результаты.</p>
   </div>
-  <div class="cases-carousel-wrap">
-    <div class="cases-track">
+  <div class="cases-slider-wrap reveal">
+    <div class="cases-slider" id="casesSlider">
       <div class="case-card">
         <div class="case-header ch-1">
-        <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.7;position:relative;z-index:1"><rect x="8" y="8" width="40" height="40" rx="2" stroke="rgba(255,107,43,0.6)" stroke-width="1.5" fill="none"/><path d="M8 20h40M20 8v40" stroke="rgba(255,107,43,0.3)" stroke-width="1" /><circle cx="28" cy="28" r="8" stroke="rgba(255,179,71,0.8)" stroke-width="1.5" fill="none"/><path d="M28 20v16M20 28h16" stroke="rgba(255,179,71,0.5)" stroke-width="1"/></svg>
-      </div>
+          <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.7;position:relative;z-index:1"><rect x="8" y="8" width="40" height="40" rx="2" stroke="rgba(255,107,43,0.6)" stroke-width="1.5" fill="none"/><path d="M8 20h40M20 8v40" stroke="rgba(255,107,43,0.3)" stroke-width="1" /><circle cx="28" cy="28" r="8" stroke="rgba(255,179,71,0.8)" stroke-width="1.5" fill="none"/><path d="M28 20v16M20 28h16" stroke="rgba(255,179,71,0.5)" stroke-width="1"/></svg>
+        </div>
         <div class="case-body">
           <div class="case-tag">E-commerce • Автоматизация</div>
           <div class="case-title">Автоматизация заказов для интернет-магазина</div>
@@ -1380,8 +1942,8 @@
       </div>
       <div class="case-card">
         <div class="case-header ch-2">
-        <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.7;position:relative;z-index:1"><circle cx="28" cy="28" r="20" stroke="rgba(255,61,107,0.5)" stroke-width="1.5" fill="none"/><circle cx="28" cy="28" r="12" stroke="rgba(255,107,43,0.6)" stroke-width="1.5" fill="none"/><circle cx="28" cy="28" r="4" fill="rgba(255,179,71,0.8)"/><path d="M28 8v6M28 42v6M8 28h6M42 28h6" stroke="rgba(255,61,107,0.4)" stroke-width="1" stroke-linecap="round"/></svg>
-      </div>
+          <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.7;position:relative;z-index:1"><circle cx="28" cy="28" r="20" stroke="rgba(255,61,107,0.5)" stroke-width="1.5" fill="none"/><circle cx="28" cy="28" r="12" stroke="rgba(255,107,43,0.6)" stroke-width="1.5" fill="none"/><circle cx="28" cy="28" r="4" fill="rgba(255,179,71,0.8)"/><path d="M28 8v6M28 42v6M8 28h6M42 28h6" stroke="rgba(255,61,107,0.4)" stroke-width="1" stroke-linecap="round"/></svg>
+        </div>
         <div class="case-body">
           <div class="case-tag">Медицина • AI-бот</div>
           <div class="case-title">Бот записи пациентов для клиники</div>
@@ -1394,8 +1956,8 @@
       </div>
       <div class="case-card">
         <div class="case-header ch-3">
-        <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.7;position:relative;z-index:1"><path d="M28 6L50 18v20L28 50 6 38V18z" stroke="rgba(255,179,71,0.6)" stroke-width="1.5" fill="none"/><path d="M28 16L42 24v16L28 44 14 36V20z" stroke="rgba(255,107,43,0.5)" stroke-width="1" fill="none"/><circle cx="28" cy="28" r="5" stroke="rgba(255,179,71,0.9)" stroke-width="1.5" fill="none"/></svg>
-      </div>
+          <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.7;position:relative;z-index:1"><path d="M28 6L50 18v20L28 50 6 38V18z" stroke="rgba(255,179,71,0.6)" stroke-width="1.5" fill="none"/><path d="M28 16L42 24v16L28 44 14 36V20z" stroke="rgba(255,107,43,0.5)" stroke-width="1" fill="none"/><circle cx="28" cy="28" r="5" stroke="rgba(255,179,71,0.9)" stroke-width="1.5" fill="none"/></svg>
+        </div>
         <div class="case-body">
           <div class="case-tag">Логистика • Дашборд</div>
           <div class="case-title">BI-дашборд для транспортной компании</div>
@@ -1408,8 +1970,8 @@
       </div>
       <div class="case-card">
         <div class="case-header ch-4">
-        <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.7;position:relative;z-index:1"><path d="M10 36L28 10l18 26H10z" stroke="rgba(107,200,255,0.5)" stroke-width="1.5" fill="none"/><path d="M16 36l12-17 12 17" stroke="rgba(107,200,255,0.3)" stroke-width="1" fill="none"/><line x1="10" y1="36" x2="46" y2="36" stroke="rgba(107,200,255,0.6)" stroke-width="1.5"/><circle cx="28" cy="23" r="3" fill="rgba(107,200,255,0.7)"/></svg>
-      </div>
+          <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.7;position:relative;z-index:1"><path d="M10 36L28 10l18 26H10z" stroke="rgba(107,200,255,0.5)" stroke-width="1.5" fill="none"/><path d="M16 36l12-17 12 17" stroke="rgba(107,200,255,0.3)" stroke-width="1" fill="none"/><line x1="10" y1="36" x2="46" y2="36" stroke="rgba(107,200,255,0.6)" stroke-width="1.5"/><circle cx="28" cy="23" r="3" fill="rgba(107,200,255,0.7)"/></svg>
+        </div>
         <div class="case-body">
           <div class="case-tag">Финтех • Интеграция</div>
           <div class="case-title">Автосинхронизация amoCRM и 1С для дистрибьютора</div>
@@ -1422,79 +1984,8 @@
       </div>
       <div class="case-card">
         <div class="case-header ch-5">
-        <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.7;position:relative;z-index:1"><rect x="10" y="18" width="36" height="26" rx="1" stroke="rgba(107,255,180,0.5)" stroke-width="1.5" fill="none"/><path d="M18 18V12h20v6" stroke="rgba(107,255,180,0.5)" stroke-width="1.5" stroke-linecap="round"/><path d="M22 30h12M28 26v8" stroke="rgba(107,255,180,0.7)" stroke-width="1.5" stroke-linecap="round"/></svg>
-      </div>
-        <div class="case-body">
-          <div class="case-tag">Производство • AI-агент</div>
-          <div class="case-title">AI-агент контроля качества на заводе</div>
-          <p class="case-desc">Разработал систему на базе компьютерного зрения для обнаружения дефектов на конвейере. Уведомляет бригадира в Telegram при выявлении отклонений.</p>
-          <div class="case-metric">
-            <div class="metric"><div class="metric-val">−70%</div><div class="metric-label">Брака на выходе</div></div>
-            <div class="metric"><div class="metric-val">ROI 8×</div><div class="metric-label">За первый год</div></div>
-          </div>
+          <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.7;position:relative;z-index:1"><rect x="10" y="18" width="36" height="26" rx="1" stroke="rgba(107,255,180,0.5)" stroke-width="1.5" fill="none"/><path d="M18 18V12h20v6" stroke="rgba(107,255,180,0.5)" stroke-width="1.5" stroke-linecap="round"/><path d="M22 30h12M28 26v8" stroke="rgba(107,255,180,0.7)" stroke-width="1.5" stroke-linecap="round"/></svg>
         </div>
-      </div>
-      <!-- Duplicate for loop -->
-      <div class="case-card">
-        <div class="case-header ch-1">
-        <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.7;position:relative;z-index:1"><rect x="8" y="8" width="40" height="40" rx="2" stroke="rgba(255,107,43,0.6)" stroke-width="1.5" fill="none"/><path d="M8 20h40M20 8v40" stroke="rgba(255,107,43,0.3)" stroke-width="1" /><circle cx="28" cy="28" r="8" stroke="rgba(255,179,71,0.8)" stroke-width="1.5" fill="none"/><path d="M28 20v16M20 28h16" stroke="rgba(255,179,71,0.5)" stroke-width="1"/></svg>
-      </div>
-        <div class="case-body">
-          <div class="case-tag">E-commerce • Автоматизация</div>
-          <div class="case-title">Автоматизация заказов для интернет-магазина</div>
-          <p class="case-desc">Связал Shopify, 1C и Telegram. Заказы обрабатываются автоматически, менеджеры получают уведомления, статусы обновляются без ручного ввода.</p>
-          <div class="case-metric">
-            <div class="metric"><div class="metric-val">−80%</div><div class="metric-label">Ручных операций</div></div>
-            <div class="metric"><div class="metric-val">3 дня</div><div class="metric-label">Срок внедрения</div></div>
-          </div>
-        </div>
-      </div>
-      <div class="case-card">
-        <div class="case-header ch-2">
-        <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.7;position:relative;z-index:1"><circle cx="28" cy="28" r="20" stroke="rgba(255,61,107,0.5)" stroke-width="1.5" fill="none"/><circle cx="28" cy="28" r="12" stroke="rgba(255,107,43,0.6)" stroke-width="1.5" fill="none"/><circle cx="28" cy="28" r="4" fill="rgba(255,179,71,0.8)"/><path d="M28 8v6M28 42v6M8 28h6M42 28h6" stroke="rgba(255,61,107,0.4)" stroke-width="1" stroke-linecap="round"/></svg>
-      </div>
-        <div class="case-body">
-          <div class="case-tag">Медицина • AI-бот</div>
-          <div class="case-title">Бот записи пациентов для клиники</div>
-          <p class="case-desc">Telegram-бот на GPT-4o консультирует пациентов, записывает на приём, напоминает о визитах и собирает обратную связь. Работает 24/7.</p>
-          <div class="case-metric">
-            <div class="metric"><div class="metric-val">+40%</div><div class="metric-label">Записей в месяц</div></div>
-            <div class="metric"><div class="metric-val">−60%</div><div class="metric-label">Нагрузки на ресепшн</div></div>
-          </div>
-        </div>
-      </div>
-      <div class="case-card">
-        <div class="case-header ch-3">
-        <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.7;position:relative;z-index:1"><path d="M28 6L50 18v20L28 50 6 38V18z" stroke="rgba(255,179,71,0.6)" stroke-width="1.5" fill="none"/><path d="M28 16L42 24v16L28 44 14 36V20z" stroke="rgba(255,107,43,0.5)" stroke-width="1" fill="none"/><circle cx="28" cy="28" r="5" stroke="rgba(255,179,71,0.9)" stroke-width="1.5" fill="none"/></svg>
-      </div>
-        <div class="case-body">
-          <div class="case-tag">Логистика • Дашборд</div>
-          <div class="case-title">BI-дашборд для транспортной компании</div>
-          <p class="case-desc">Агрегировал данные из 5 систем в единый дашборд. Руководитель видит статус каждой машины, выручку и KPI водителей в реальном времени.</p>
-          <div class="case-metric">
-            <div class="metric"><div class="metric-val">5 систем</div><div class="metric-label">Объединено в одно</div></div>
-            <div class="metric"><div class="metric-val">2×</div><div class="metric-label">Скорость решений</div></div>
-          </div>
-        </div>
-      </div>
-      <div class="case-card">
-        <div class="case-header ch-4">
-        <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.7;position:relative;z-index:1"><path d="M10 36L28 10l18 26H10z" stroke="rgba(107,200,255,0.5)" stroke-width="1.5" fill="none"/><path d="M16 36l12-17 12 17" stroke="rgba(107,200,255,0.3)" stroke-width="1" fill="none"/><line x1="10" y1="36" x2="46" y2="36" stroke="rgba(107,200,255,0.6)" stroke-width="1.5"/><circle cx="28" cy="23" r="3" fill="rgba(107,200,255,0.7)"/></svg>
-      </div>
-        <div class="case-body">
-          <div class="case-tag">Финтех • Интеграция</div>
-          <div class="case-title">Автосинхронизация amoCRM и 1С для дистрибьютора</div>
-          <p class="case-desc">Настроил двустороннюю синхронизацию сделок, счетов и оплат между amoCRM и 1С. Менеджеры видят статус оплаты прямо в карточке клиента.</p>
-          <div class="case-metric">
-            <div class="metric"><div class="metric-val">−90%</div><div class="metric-label">Ошибок в данных</div></div>
-            <div class="metric"><div class="metric-val">5 дней</div><div class="metric-label">Внедрение</div></div>
-          </div>
-        </div>
-      </div>
-      <div class="case-card">
-        <div class="case-header ch-5">
-        <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.7;position:relative;z-index:1"><rect x="10" y="18" width="36" height="26" rx="1" stroke="rgba(107,255,180,0.5)" stroke-width="1.5" fill="none"/><path d="M18 18V12h20v6" stroke="rgba(107,255,180,0.5)" stroke-width="1.5" stroke-linecap="round"/><path d="M22 30h12M28 26v8" stroke="rgba(107,255,180,0.7)" stroke-width="1.5" stroke-linecap="round"/></svg>
-      </div>
         <div class="case-body">
           <div class="case-tag">Производство • AI-агент</div>
           <div class="case-title">AI-агент контроля качества на заводе</div>
@@ -1506,6 +1997,60 @@
         </div>
       </div>
     </div>
+    <div class="cases-nav">
+      <button class="cases-nav-btn" id="casesPrev" disabled>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <button class="cases-nav-btn" id="casesNext">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+      <div class="cases-nav-dots" id="casesDots"></div>
+    </div>
+  </div>
+</section>
+
+
+
+
+<!-- QUIZ -->
+<section id="quiz">
+  <div class="quiz-wrap">
+    <div class="quiz-header reveal">
+      <div class="sec-eyebrow">Калькулятор</div>
+      <div class="sec-title">Узнайте стоимость<br>автоматизации</div>
+      <p class="sec-sub" style="margin:0 auto;text-align:center;">6 вопросов &#8212; персональный план и оценка под ваш бизнес.</p>
+    </div>
+    <div class="quiz-box reveal">
+      <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quizProgress" style="width:14%"></div></div>
+      <div class="quiz-steps">
+        <div class="quiz-step active" data-step="1"><div class="quiz-step-label">Шаг 1 из 6</div><div class="quiz-q">Что больше всего тормозит ваш бизнес прямо сейчас?</div><div class="quiz-options"><button class="quiz-opt" data-val="Ручная обработка заявок и данных"><span class="quiz-opt-num">A</span>Ручная обработка заявок и данных</button><button class="quiz-opt" data-val="Медленные ответы клиентам"><span class="quiz-opt-num">B</span>Медленные ответы клиентам</button><button class="quiz-opt" data-val="Нет аналитики и контроля"><span class="quiz-opt-num">C</span>Нет аналитики и контроля</button><button class="quiz-opt" data-val="Системы не связаны между собой"><span class="quiz-opt-num">D</span>Системы не связаны между собой</button></div><div class="quiz-nav"><button class="quiz-btn-next" data-next="2" disabled>Далее &#8594;</button></div></div>
+        <div class="quiz-step" data-step="2"><div class="quiz-step-label">Шаг 2 из 6</div><div class="quiz-q">Какая у вас сфера бизнеса?</div><div class="quiz-options"><button class="quiz-opt" data-val="E-commerce / Торговля"><span class="quiz-opt-num">A</span>E-commerce / Торговля</button><button class="quiz-opt" data-val="Услуги / B2B"><span class="quiz-opt-num">B</span>Услуги / B2B</button><button class="quiz-opt" data-val="Медицина / Образование"><span class="quiz-opt-num">C</span>Медицина / Образование</button><button class="quiz-opt" data-val="Производство / Логистика"><span class="quiz-opt-num">D</span>Производство / Логистика</button></div><div class="quiz-nav"><button class="quiz-btn-next" data-next="3" disabled>Далее &#8594;</button></div></div>
+        <div class="quiz-step" data-step="3"><div class="quiz-step-label">Шаг 3 из 6</div><div class="quiz-q">Какие системы уже используете?</div><div class="quiz-options"><button class="quiz-opt" data-val="CRM (amoCRM / Bitrix24)"><span class="quiz-opt-num">A</span>CRM (amoCRM / Bitrix24)</button><button class="quiz-opt" data-val="1С + таблицы"><span class="quiz-opt-num">B</span>1С + таблицы</button><button class="quiz-opt" data-val="Только таблицы / почта"><span class="quiz-opt-num">C</span>Только таблицы / почта</button><button class="quiz-opt" data-val="Несколько разных систем без связи"><span class="quiz-opt-num">D</span>Несколько разных систем без связи</button></div><div class="quiz-nav"><button class="quiz-btn-next" data-next="4" disabled>Далее &#8594;</button></div></div>
+        <div class="quiz-step" data-step="4"><div class="quiz-step-label">Шаг 4 из 6</div><div class="quiz-q">Сколько человек в вашей команде?</div><div class="quiz-options"><button class="quiz-opt" data-val="1–5 человек"><span class="quiz-opt-num">A</span>1–5 человек</button><button class="quiz-opt" data-val="6–20 человек"><span class="quiz-opt-num">B</span>6–20 человек</button><button class="quiz-opt" data-val="21–100 человек"><span class="quiz-opt-num">C</span>21–100 человек</button><button class="quiz-opt" data-val="100+ человек"><span class="quiz-opt-num">D</span>100+ человек</button></div><div class="quiz-nav"><button class="quiz-btn-next" data-next="5" disabled>Далее &#8594;</button></div></div>
+        <div class="quiz-step" data-step="5"><div class="quiz-step-label">Шаг 5 из 6</div><div class="quiz-q">Сколько часов в неделю тратится на ручную рутину?</div><div class="quiz-options"><button class="quiz-opt" data-val="До 5 часов в неделю"><span class="quiz-opt-num">A</span>До 5 часов в неделю</button><button class="quiz-opt" data-val="5–20 часов в неделю"><span class="quiz-opt-num">B</span>5–20 часов в неделю</button><button class="quiz-opt" data-val="20–40 часов в неделю"><span class="quiz-opt-num">C</span>20–40 часов в неделю</button><button class="quiz-opt" data-val="40+ часов — критично"><span class="quiz-opt-num">D</span>40+ часов &#8212; критично</button></div><div class="quiz-nav"><button class="quiz-btn-next" data-next="6" disabled>Далее &#8594;</button></div></div>
+        <div class="quiz-step" data-step="6"><div class="quiz-step-label">Шаг 6 из 6</div><div class="quiz-q">Какой бюджет на автоматизацию рассматриваете?</div><div class="quiz-options"><button class="quiz-opt" data-val="до 50 000 руб"><span class="quiz-opt-num">A</span>до 50 000 &#8381;</button><button class="quiz-opt" data-val="50 000 – 150 000 руб"><span class="quiz-opt-num">B</span>50 000 – 150 000 &#8381;</button><button class="quiz-opt" data-val="150 000 – 500 000 руб"><span class="quiz-opt-num">C</span>150 000 – 500 000 &#8381;</button><button class="quiz-opt" data-val="500 000 руб+ / обсудим"><span class="quiz-opt-num">D</span>500 000 &#8381;+ / обсудим</button></div><div class="quiz-nav"><button class="quiz-btn-next" data-next="final" disabled>Получить оценку &#8594;</button></div></div>
+      </div>
+      <div class="quiz-final" id="quizFinal"><div class="quiz-step-label">Почти готово</div><div class="quiz-final-title">Ваша оценка <span>готова</span></div><p class="quiz-final-sub">На основе ваших ответов подготовил персональный расчёт. Укажите контакт &#8212; пришлю результат и план действий.</p><div class="quiz-result-preview" id="quizResultPreview"></div><form class="quiz-final-form" id="quizForm"><input type="text" class="popup-input" id="quiz-name" placeholder="Ваше имя" required><input type="text" class="popup-input" id="quiz-contact" placeholder="Telegram или телефон" required><button type="submit" class="quiz-btn-next" style="width:100%">Получить расчёт &#8594;</button></form></div>
+      <div class="quiz-success" id="quizSuccess"><div class="quiz-success-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><div class="quiz-success-title">Отправлено!</div><p class="quiz-success-sub">Свяжусь с вами в ближайшее время с персональной оценкой и планом автоматизации.</p></div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- FAQ -->
+<section id="faq">
+  <div style="text-align:center" class="reveal">
+    <div class="sec-eyebrow" style="justify-content:center">Вопросы</div>
+    <div class="sec-title">Ответы на главные<br>вопросы</div>
+  </div>
+  <div class="faq-wrap reveal">
+    <div class="faq-item"><button class="faq-q">За сколько окупается автоматизация?<span class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></span></button><div class="faq-a">В среднем от 1 до 3 месяцев. Срок зависит от объёма клиентов и того, какие процессы автоматизируются, но первые финансовые эффекты обычно появляются уже в первые недели.</div></div>
+    <div class="faq-item"><button class="faq-q">Нужно ли менять текущие системы (CRM, 1С и т.д.)?<span class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></span></button><div class="faq-a">Как правило, нет. Автоматизация внедряется поверх существующих систем и интегрируется с ними. Полная замена требуется редко.</div></div>
+    <div class="faq-item"><button class="faq-q">Что будет, если что-то сломается после запуска?<span class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></span></button><div class="faq-a">Современные решения проектируются так, чтобы не останавливать бизнес. При сбоях можно временно использовать ручной режим, а ошибки обычно быстро устраняются.</div></div>
+    <div class="faq-item"><button class="faq-q">Как быстро можно увидеть первые результаты?<span class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></span></button><div class="faq-a">Первые улучшения заметны через 1–2 недели (ускорение процессов, снижение ошибок). Полный эффект проявляется в течение 1 месяца.</div></div>
+    <div class="faq-item"><button class="faq-q">Вы работаете только с крупным бизнесом?<span class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></span></button><div class="faq-a">Нет. Автоматизация актуальна для компаний любого размера — от малого бизнеса до крупных предприятий. Масштаб влияет только на сложность внедрения.</div></div>
+    <div class="faq-item"><button class="faq-q">Как начать работу прямо сейчас?<span class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></span></button><div class="faq-a">Заполните форму внизу или напишите в Telegram. Свяжусь в течение нескольких часов, договоримся о бесплатной консультации. После неё у вас будет чёткое понимание что делать и сколько это стоит.</div></div>
   </div>
 </section>
 
@@ -1635,94 +2180,337 @@
 
   // Form
   (function () {
-    var form         = document.getElementById('lead-form');
-    var btn          = document.getElementById('submitBtn');
-    var successBlock = document.getElementById('success-block');
-    var resetBtn     = document.getElementById('resetBtn');
-    if (!form || !btn || !successBlock || !resetBtn) return;
+    var WEBHOOK = 'https://6et7r1i4.rpcl.app/webhook/lead';
 
-    var WEBHOOK      = 'https://6et7r1i4.rpcl.app/webhook/lead';
-
-    function getVal(id) {
-      var el = document.getElementById(id);
-      return el ? el.value.trim() : '';
-    }
-
-    function setBtnText(text) {
-      btn.querySelector('span').textContent = text;
-    }
-
-    function showSuccess() {
-      form.style.display = 'none';
-      successBlock.style.display = 'block';
-    }
-
-    function showForm() {
-      successBlock.style.display = 'none';
-      form.style.display = 'block';
-      form.reset();
-      btn.disabled = false;
-      setBtnText('Отправить заявку →');
-      btn.style.opacity = '';
-    }
-
-    resetBtn.addEventListener('click', showForm);
-
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-
-      var name     = getVal('f-name');
-      var contact  = getVal('f-contact');
-      var taskType = getVal('f-taskType');
-      var message  = getVal('f-message');
-
-      if (!name || !contact || !taskType || !message) {
-        setBtnText('Заполните все поля');
-        btn.style.background = '#ff3d6b';
-        setTimeout(() => {
-          setBtnText('Отправить заявку →');
-          btn.style.background = '';
-        }, 2000);
-        return;
+    function sendToWebhook(payload, onSuccess, onError) {
+      var fd = new FormData();
+      for (var key in payload) {
+        if (payload.hasOwnProperty(key)) {
+          fd.append(key, payload[key]);
+        }
       }
 
-      setBtnText('Отправка...');
-      btn.disabled = true;
-      btn.style.opacity = '0.7';
-
-      var fd = new FormData();
-      fd.append('name', name);
-      fd.append('contact', contact);
-      fd.append('taskType', taskType);
-      fd.append('message', message);
-
-      fetch(WEBHOOK, { method: 'POST', body: fd })
+      // Попытка отправки с CORS; если не получилось, пробуем no-cors, чтобы не зависеть от политики браузера.
+      fetch(WEBHOOK, { method: 'POST', body: fd, mode: 'cors' })
         .then(function (response) {
           if (response.ok) {
-            showSuccess();
+            onSuccess && onSuccess();
           } else {
-            setBtnText('Ошибка отправки');
-            btn.style.background = '#ff3d6b';
-            btn.disabled = false;
-            btn.style.opacity = '';
-            setTimeout(() => {
-              setBtnText('Отправить заявку →');
-              btn.style.background = '';
-            }, 2500);
+            // Если webhook вернул 4xx/5xx, пробуем резервный no-cors
+            return fetch(WEBHOOK, { method: 'POST', body: fd, mode: 'no-cors' })
+              .then(function () { onSuccess && onSuccess(); })
+              .catch(function () { onError && onError(); });
           }
         })
         .catch(function () {
-          setBtnText('Ошибка отправки');
-          btn.style.background = '#ff3d6b';
-          btn.disabled = false;
-          btn.style.opacity = '';
-          setTimeout(() => {
-            setBtnText('Отправить заявку →');
-            btn.style.background = '';
-          }, 2500);
+          fetch(WEBHOOK, { method: 'POST', body: fd, mode: 'no-cors' })
+            .then(function () {
+              onSuccess && onSuccess();
+            })
+            .catch(function () {
+              onError && onError();
+            });
         });
-    });
+    }
+
+    // Lead form (main)
+    var leadForm = document.getElementById('lead-form');
+    if (leadForm) {
+      var leadBtn = document.getElementById('submitBtn');
+      var leadSuccess = document.getElementById('success-block');
+      var leadReset = document.getElementById('resetBtn');
+
+      function setLeadBtnText(text) {
+        if (leadBtn && leadBtn.querySelector('span')) leadBtn.querySelector('span').textContent = text;
+      }
+
+      function showLeadSuccess() {
+        leadForm.style.display = 'none';
+        leadSuccess.style.display = 'block';
+      }
+
+      function showLeadForm() {
+        leadSuccess.style.display = 'none';
+        leadForm.style.display = 'block';
+        leadForm.reset();
+        leadBtn.disabled = false;
+        setLeadBtnText('Отправить заявку →');
+        leadBtn.style.opacity = '';
+      }
+
+      if (leadReset) { leadReset.addEventListener('click', showLeadForm); }
+
+      leadForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var name = document.getElementById('f-name').value.trim();
+        var contact = document.getElementById('f-contact').value.trim();
+        var taskType = document.getElementById('f-taskType').value.trim();
+        var message = document.getElementById('f-message').value.trim();
+
+        if (!name || !contact || !taskType || !message) {
+          setLeadBtnText('Заполните все поля');
+          leadBtn.style.background = '#ff3d6b';
+          setTimeout(function () { setLeadBtnText('Отправить заявку →'); leadBtn.style.background = ''; }, 2000);
+          return;
+        }
+
+        setLeadBtnText('Отправка...');
+        leadBtn.disabled = true;
+        leadBtn.style.opacity = '0.7';
+
+        var payload = {
+          source: 'lead-form',
+          name: name,
+          contact: contact,
+          taskType: taskType,
+          message: message
+        };
+
+        sendToWebhook(payload, function () {
+          showLeadSuccess();
+        }, function () {
+          setLeadBtnText('Ошибка отправки');
+          leadBtn.style.background = '#ff3d6b';
+          leadBtn.disabled = false;
+          leadBtn.style.opacity = '';
+          setTimeout(function () { setLeadBtnText('Отправить заявку →'); leadBtn.style.background = ''; }, 2500);
+        });
+      });
+    }
+
+    // Audit strip form
+    var auditForm = document.getElementById('auditForm');
+    if (auditForm) {
+      auditForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var contact = document.getElementById('audit-contact').value.trim();
+        if (!contact) { alert('Укажите Telegram или телефон'); return; }
+        sendToWebhook({ source: 'audit-strip', contact: contact }, function () {
+          alert('Спасибо! Мы получили заявку на аудит.');
+          auditForm.reset();
+        }, function () {
+          alert('Ошибка отправки. Попробуйте позже.');
+        });
+      });
+    }
+
+    // Calculator form
+    var calcForm = document.getElementById('calcForm');
+    if (calcForm) {
+      calcForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var contact = document.getElementById('calc-contact').value.trim();
+        if (!contact) { alert('Укажите Telegram или телефон.'); return; }
+
+        var l = Number(document.getElementById('calcLeads').value);
+        var c = Number(document.getElementById('calcCheck').value);
+        var p = Number(document.getElementById('calcConv').value);
+        sendToWebhook({ source: 'calculator', contact: contact, leads: l, check: c, conversion: p }, function () {
+          alert('Спасибо! Расчёт отправлен.');
+          calcForm.reset();
+        }, function () {
+          alert('Ошибка отправки калькулятора. Попробуйте позже.');
+        });
+      });
+    }
+
+    // Quiz form final handler
+    var quizForm = document.getElementById('quizForm');
+    var quizResultPreview = document.getElementById('quizResultPreview');
+    if (quizForm) {
+      quizForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var name = document.getElementById('quiz-name').value.trim();
+        var contact = document.getElementById('quiz-contact').value.trim();
+        if (!name || !contact) { alert('Заполните имя и контакт'); return; }
+        var answers = quizResultPreview ? quizResultPreview.textContent.trim() : '';
+        sendToWebhook({ source: 'quiz', name: name, contact: contact, answers: answers }, function () {
+          var quizSuccess = document.getElementById('quizSuccess');
+          document.getElementById('quizFinal').classList.remove('active');
+          if (quizSuccess) quizSuccess.classList.add('active');
+        }, function () {
+          alert('Ошибка отправки квиза. Попробуйте позже.');
+        });
+      });
+    }
+
+    // FAQ accordion
+    var faqButtons = document.querySelectorAll('.faq-q');
+    if (faqButtons.length) {
+      faqButtons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var answer = btn.nextElementSibling;
+          if (!answer) return;
+
+          var isOpen = btn.classList.contains('open');
+          faqButtons.forEach(function (other) {
+            var otherAnswer = other.nextElementSibling;
+            if (!otherAnswer) return;
+            other.classList.remove('open');
+            otherAnswer.classList.remove('open');
+            otherAnswer.style.maxHeight = null;
+          });
+
+          if (!isOpen) {
+            btn.classList.add('open');
+            answer.classList.add('open');
+            answer.style.maxHeight = answer.scrollHeight + 'px';
+          }
+        });
+      });
+    }
   })();
+  // Калькулятор потерь
+  (function () {
+    var leads = document.getElementById('calcLeads');
+    var check = document.getElementById('calcCheck');
+    var conv = document.getElementById('calcConv');
+
+    var leadsVal = document.getElementById('calcLeadsVal');
+    var checkVal = document.getElementById('calcCheckVal');
+    var convVal = document.getElementById('calcConvVal');
+    var lostLeads = document.getElementById('calcLostLeads');
+    var growthVal = document.getElementById('calcGrowth');
+    var lossVal = document.getElementById('calcLoss');
+
+    function updateCalc() {
+      var l = Number(leads.value);
+      var c = Number(check.value);
+      var p = Number(conv.value);
+
+      leadsVal.innerHTML = l.toLocaleString('ru-RU') + ' <span>заявок</span>';
+      checkVal.innerHTML = c.toLocaleString('ru-RU') + ' <span>₽</span>';
+      convVal.innerHTML = p.toLocaleString('ru-RU') + ' <span>%</span>';
+
+      // Чем ниже текущая конверсия, тем выше потенциальный прирост после автоматизации.
+      var growth = Math.max(4, Math.min(18, Math.round((32 - p) * 0.45)));
+      var improvedConv = Math.min(80, p + growth);
+      var additionalDeals = l * ((improvedConv - p) / 100);
+      var lost = Math.round(additionalDeals);
+      if (lost < 1) lost = 1;
+
+      var loss = Math.round(additionalDeals * c);
+
+      if (lostLeads) lostLeads.textContent = lost.toLocaleString('ru-RU');
+      if (growthVal) growthVal.textContent = '+' + growth + '%';
+      if (lossVal) lossVal.textContent = loss.toLocaleString('ru-RU') + ' ₽';
+    }
+
+    if (leads && check && conv) {
+      leads.addEventListener('input', updateCalc);
+      check.addEventListener('input', updateCalc);
+      conv.addEventListener('input', updateCalc);
+      updateCalc();
+    }
+
+    var calcForm = document.getElementById('calcForm');
+    if (calcForm) {
+      calcForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var contact = document.getElementById('calc-contact').value.trim();
+        if (!contact) {
+          alert('Укажите Telegram или телефон, чтобы получить расчёт.');
+          return;
+        }
+        alert('Спасибо! Мы отправили расчёт по ' + contact + '.');
+        calcForm.reset();
+        updateCalc();
+      });
+    }
+  })();
+
+  // Квиз шагов
+  (function () {
+    var quizSteps = Array.prototype.slice.call(document.querySelectorAll('.quiz-step'));
+    var quizProgress = document.getElementById('quizProgress');
+    var quizResultPreview = document.getElementById('quizResultPreview');
+    var quizFinal = document.getElementById('quizFinal');
+    var quizSuccess = document.getElementById('quizSuccess');
+    var quizForm = document.getElementById('quizForm');
+
+    if (!quizSteps.length) return;
+
+    var answers = {};
+    var currentStep = 0;
+
+    function showStep(index) {
+      quizSteps.forEach(function(step, i) {
+        step.classList.toggle('active', i === index);
+      });
+      currentStep = index;
+      var total = quizSteps.length;
+      var width = ((index) / total) * 100;
+      if (quizProgress) quizProgress.style.width = width + '%';
+    }
+
+    function updatePreview() {
+      var lines = [];
+      for (var key in answers) {
+        if (answers[key]) lines.push(key + ': ' + answers[key]);
+      }
+      if (quizResultPreview) {
+        quizResultPreview.textContent = lines.length ? lines.join('\n') : 'Пожалуйста, выберите ответы.';
+      }
+    }
+
+    quizSteps.forEach(function(step) {
+      var options = step.querySelectorAll('.quiz-opt');
+      var btn = step.querySelector('.quiz-btn-next');
+
+      options.forEach(function(option) {
+        option.addEventListener('click', function() {
+          options.forEach(function(o) { o.classList.remove('selected'); });
+          option.classList.add('selected');
+          if (btn) btn.disabled = false;
+        });
+      });
+
+      if (btn) {
+        btn.addEventListener('click', function() {
+          var selected = step.querySelector('.quiz-opt.selected');
+          if (!selected) return;
+
+          var choice = selected.getAttribute('data-val') || selected.textContent.trim();
+          var stepNum = step.getAttribute('data-step');
+          answers['Шаг ' + stepNum] = choice;
+
+          var next = btn.getAttribute('data-next');
+          if (next === 'final') {
+            quizSteps.forEach(function(s) { s.classList.remove('active'); });
+            if (quizFinal) quizFinal.classList.add('active');
+            if (quizProgress) quizProgress.style.width = '100%';
+            updatePreview();
+            return;
+          }
+
+          var nextIndex = quizSteps.findIndex(function(s) { return s.getAttribute('data-step') === next; });
+          if (nextIndex >= 0) {
+            showStep(nextIndex);
+          }
+        });
+      }
+    });
+
+    if (quizForm) {
+      quizForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var name = document.getElementById('quiz-name').value.trim();
+        var contact = document.getElementById('quiz-contact').value.trim();
+        if (!name || !contact) {
+          alert('Заполните имя и контакт.');
+          return;
+        }
+        quizFinal.classList.remove('active');
+        if (quizSuccess) quizSuccess.classList.add('active');
+      });
+    }
+
+    showStep(0);
+    updatePreview();
+  })();
+
 </script>
+
+
 </body>
 </html>
